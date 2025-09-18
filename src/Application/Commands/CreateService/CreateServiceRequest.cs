@@ -1,6 +1,3 @@
-namespace Application.Commands.CreateService;
+namespace Slotify.Application.Commands.CreateService;
 
-public class CreateServiceRequest
-{
-    
-}
+public record CreateServiceRequest(string Name, float duration, double Price, string Image);

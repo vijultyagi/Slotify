@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Slotify.Application.Configuration.Commands;
 
-namespace Application.Commands.CreateService;
-public class CreateServiceCommand
+namespace Slotify.Application.Commands.CreateService;
+
+public class CreateServiceCommand(CreateServiceRequest createServiceRequest) : CommandBase<Guid>
 {
-    
+    public CreateServiceRequest CreateServiceRequest { get; } = createServiceRequest;
 }
