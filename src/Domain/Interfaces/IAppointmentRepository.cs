@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Slotify.Domain.Entities.AppointmentAggregate;
 
-namespace Domain.Interfaces
+namespace Slotify.Domain.Interfaces
 {
     public interface IAppointmentRepository
     {

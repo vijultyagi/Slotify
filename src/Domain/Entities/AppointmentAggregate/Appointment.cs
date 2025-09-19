@@ -17,6 +17,8 @@ public class Appointment : BaseEntity
     // Navigation properties (optional)
     public Stylist Stylist { get; private set; }
     public Service Service { get; private set; }
+    
+    private Appointment() { } // For EF Core
 
     public Appointment(Guid customerId, Guid stylistId, Guid serviceId, DateTime startTime, DateTime endTime, AppointmentStatus status)
     {
@@ -27,7 +29,7 @@ public class Appointment : BaseEntity
         EndTime = endTime;
 
         Id = Guid.NewGuid();
-        Status = AppointmentStatus.Confirmed;       
+        Status = AppointmentStatus.Confirmed;
         CreatedOn = DateTime.UtcNow;
         UpdatedOn = DateTime.UtcNow;
 

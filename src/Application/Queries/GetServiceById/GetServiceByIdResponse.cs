@@ -1,6 +1,9 @@
 ﻿namespace Slotify.Application.Queries.GetServiceById;
 
-public class GetServiceByIdResponse
-{
-
-}
+public record GetServiceByIdResponse(
+    Guid Id,
+    string Name,
+    float Duration,
+    double Price,
+    string? Image
+);

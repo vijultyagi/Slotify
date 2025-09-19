@@ -1,6 +1,8 @@
-﻿namespace Slotify.Application.Commands.UpdateService;
+﻿using Slotify.Application.Configuration.Commands;
 
-public class UpdateServiceCommand
+namespace Slotify.Application.Commands.UpdateService;
+
+public class UpdateServiceCommand(UpdateServiceRequest updateServiceRequest) : CommandBase<Guid>
 {
-
+    public UpdateServiceRequest UpdateServiceRequest { get; } = updateServiceRequest;
 }

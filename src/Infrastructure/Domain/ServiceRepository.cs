@@ -1,36 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Slotify.Domain.Entities.ServiceAggreagate;
+using Slotify.Domain.Interfaces;
+using Slotify.Infrastructure.Database.Context;
 
 namespace Slotify.Infrastructure.Domain
 {
-    public class ServiceRepository : IServiceRepository
+    public class ServiceRepository(SlotifyDbContext dbContext) : IServiceRepository
     {
-        public Task<ICollection<Service>> GetAllServicesAsync()
+        public async Task<ICollection<Service>> GetAllServicesAsync()
         {
-            throw new NotImplementedException();
-        }
-        public Task<Service?> GetServiceByIdAsync(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-        public Task AddServiceAsync(Service service)
-        {
-            throw new NotImplementedException();
+            return await dbContext.Services.ToListAsync();
         }
 
-        public Task UpdateServiceAsync(Service service)
+        public Task<Service?> GetServiceByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return dbContext.Services.FirstOrDefaultAsync(s => s.Id == id);
         }
         
-        public Task DeleteServiceAsync(Service service)
+        public async Task AddServiceAsync(Service service)
         {
-            throw new NotImplementedException();
+            await dbContext.Services.AddAsync(service);
+            await SaveChangesAsync();
         }
+
+        public async Task DeleteServiceAsync(Service service)
+        {
+            await dbContext.Services.Where(s => s.Id == service.Id).ExecuteDeleteAsync();
+            await SaveChangesAsync();
+        }
+        
+        public Task SaveChangesAsync() => dbContext.SaveChangesAsync();
         
     }
 }

@@ -1,6 +1,9 @@
 ﻿namespace Slotify.Application.Commands.UpdateService;
 
-public class UpdateServiceRequest
-{
-
-}
+public record UpdateServiceRequest(
+    Guid Id,
+    string Name,
+    float Duration,
+    double Price,
+    string? Image
+);

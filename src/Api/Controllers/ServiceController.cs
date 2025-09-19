@@ -1,37 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Slotify.Application.Commands.CreateService;
+using Slotify.Application.Commands.UpdateService;
+using Slotify.Application.Queries.GetServiceById;
+using Slotify.Application.Queries.GetServices;
 
-namespace Api.Controllers;
+namespace Slotify.Api.Controllers;
 
 [ApiController]
 [Route("api/services")]
-public class ServiceController
+public class ServiceController(IMediator _mediatr) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetServices()
     {
-        return new OkObjectResult(new List<string> { "Service1", "Service25" });
+        var result = await _mediatr.Send(new GetServicesQuery());
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetServiceById(Guid id)
     {
-        return new OkObjectResult("Service1");
+        var result = await _mediatr.Send(new GetServiceByIdQuery(id));
+        return Ok(result);
     }
 
-    public async Task<IActionResult> CreateService([FromBody] string service)
+    [HttpPost]
+    public async Task<IActionResult> CreateService(CreateServiceRequest request)
     {
-        return new CreatedResult($"/api/services/{Guid.NewGuid()}", service);
+        var result = await _mediatr.Send(new CreateServiceCommand(request));
+        return Ok(result);
     }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateService(Guid id, [FromBody] string service)
-    {
-        return new OkObjectResult(service);
-    }
+    // [HttpPut("{id}")]
+    // public async Task<IActionResult> UpdateService(Guid id, UpdateServiceRequest request)
+    // {
+    //     var result = await _mediatr.Send(new UpdateServiceCommand(request with { Id = id }));
+    // }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteService(Guid id)

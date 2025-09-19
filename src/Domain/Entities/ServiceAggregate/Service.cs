@@ -6,6 +6,8 @@ public class Service : BaseEntity
     public float Duration { get; private set; }
     public double Price { get; private set; }
     public string Image { get; private set; }
+    
+    private Service() { } // For EF Core
 
     public Service(string name, float duration, double price, string image)
     {
@@ -17,7 +19,7 @@ public class Service : BaseEntity
         Id = Guid.NewGuid();
         CreatedOn = DateTime.UtcNow;
         UpdatedOn = DateTime.UtcNow;
-        
+
         //TODO: Update these
         CreatedBy = null;
         UpdatedBy = null;

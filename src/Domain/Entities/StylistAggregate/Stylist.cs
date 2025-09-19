@@ -11,6 +11,8 @@ public class Stylist : BaseEntity
     public ICollection<Service> Services { get; private set; }
     public StylistStatus Status { get; private set; }
     public ICollection<Weekday> DaysOff { get; private set; }
+
+    private Stylist() { } // For EF Core
  
     public Stylist(string name, string email, double availability, ICollection<Service> services, ICollection<Weekday> daysOff)
     {
