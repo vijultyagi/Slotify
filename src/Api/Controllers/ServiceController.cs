@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Slotify.Application.Commands.CreateService;
+using Slotify.Application.Commands.DeleteService;
 using Slotify.Application.Commands.UpdateService;
 using Slotify.Application.Queries.GetServiceById;
 using Slotify.Application.Queries.GetServices;
@@ -32,15 +33,17 @@ public class ServiceController(IMediator _mediatr) : ControllerBase
         return Ok(result);
     }
 
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> UpdateService(Guid id, UpdateServiceRequest request)
-    // {
-    //     var result = await _mediatr.Send(new UpdateServiceCommand(request with { Id = id }));
-    // }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateService(Guid id, UpdateServiceRequest request)
+    {
+        var result = await _mediatr.Send(new UpdateServiceCommand(id, request));
+        return Ok(result);
+    }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteService(Guid id)
     {
-        return new NoContentResult();
+        var result = await _mediatr.Send(new DeleteServiceCommand(id));
+        return Ok(result);
     }
 }

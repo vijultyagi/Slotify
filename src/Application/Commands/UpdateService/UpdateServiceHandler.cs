@@ -8,7 +8,7 @@ public class UpdateServiceHandler(IServiceRepository _serviceRepository) : IRequ
     public async Task<Guid> Handle(UpdateServiceCommand command, CancellationToken cancellationToken)
     {
         var request = command.UpdateServiceRequest;
-        var service = await _serviceRepository.GetServiceByIdAsync(request.Id);
+        var service = await _serviceRepository.GetServiceByIdAsync(command.Id);
 
         if (service is null)
         {

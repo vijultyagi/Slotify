@@ -16,17 +16,18 @@ namespace Slotify.Infrastructure.Domain
         {
             return dbContext.Services.FirstOrDefaultAsync(s => s.Id == id);
         }
-        
+
         public async Task AddServiceAsync(Service service)
         {
             await dbContext.Services.AddAsync(service);
             await SaveChangesAsync();
         }
 
-        public async Task DeleteServiceAsync(Service service)
+        public async Task<Guid> DeleteServiceAsync(Guid id)
         {
-            await dbContext.Services.Where(s => s.Id == service.Id).ExecuteDeleteAsync();
+            await dbContext.Services.Where(s => s.Id == id).ExecuteDeleteAsync();
             await SaveChangesAsync();
+            return id;
         }
         
         public Task SaveChangesAsync() => dbContext.SaveChangesAsync();

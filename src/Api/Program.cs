@@ -19,8 +19,11 @@ builder.Services.AddDbContext<SlotifyDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer(); // Required for API Explorer
 builder.Services.AddSwaggerGen();
 
+// builder.Services.AddMediatR(cfg =>
+//     cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+    cfg.RegisterServicesFromAssembly(typeof(CreateServiceHandler).Assembly));
 
 var app = builder.Build();
 

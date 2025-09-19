@@ -13,20 +13,20 @@ public class Appointment : BaseEntity
     public DateTime StartTime { get; private set; }
     public DateTime EndTime { get; private set; }
     public AppointmentStatus Status { get; private set; }
-
-    // Navigation properties (optional)
     public Stylist Stylist { get; private set; }
     public Service Service { get; private set; }
     
     private Appointment() { } // For EF Core
 
-    public Appointment(Guid customerId, Guid stylistId, Guid serviceId, DateTime startTime, DateTime endTime, AppointmentStatus status)
+    public Appointment(Guid customerId, Guid stylistId, Guid serviceId, DateTime startTime, DateTime endTime, AppointmentStatus status, Stylist stylist, Service service)
     {
         CustomerId = customerId;
         StylistId = stylistId;
         ServiceId = serviceId;
         StartTime = startTime;
         EndTime = endTime;
+        Stylist = stylist;
+        Service = service;
 
         Id = Guid.NewGuid();
         Status = AppointmentStatus.Confirmed;

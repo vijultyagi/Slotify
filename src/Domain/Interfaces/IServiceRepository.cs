@@ -11,6 +11,6 @@ public interface IServiceRepository
     public Task<ICollection<Service>> GetAllServicesAsync();
     public Task<Service?> GetServiceByIdAsync(Guid id);
     public Task AddServiceAsync(Service service);
-    public Task DeleteServiceAsync(Service service);
+    public Task<Guid> DeleteServiceAsync(Guid id);
     public Task SaveChangesAsync();
 }
