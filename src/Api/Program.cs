@@ -12,6 +12,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IStylistRepository, StylistRepository>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
 builder.Services.AddDbContext<SlotifyDbContext>(options =>
     options.UseInMemoryDatabase("SlotifyDb"));

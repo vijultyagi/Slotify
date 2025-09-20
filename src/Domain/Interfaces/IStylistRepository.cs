@@ -11,7 +11,6 @@ namespace Slotify.Domain.Interfaces
         public Task<ICollection<Stylist>> GetAllStylistsAsync();
         public Task<Stylist?> GetStylistByIdAsync(Guid id);
         public Task AddStylistAsync(Stylist stylist);
-        public Task UpdateStylistAsync(Stylist stylist);
-        public Task DeleteStylistAsync(Stylist stylist);
+        public Task<Guid> DeleteStylistAsync(Guid id);
     }
 }

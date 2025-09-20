@@ -8,8 +8,6 @@ namespace Slotify.Domain.Entities.AppointmentAggregate;
 public class Appointment : BaseEntity
 {
     public Guid CustomerId { get; private set; }
-    public Guid StylistId { get; private set; }
-    public Guid ServiceId { get; private set; }
     public DateTime StartTime { get; private set; }
     public DateTime EndTime { get; private set; }
     public AppointmentStatus Status { get; private set; }
@@ -18,11 +16,9 @@ public class Appointment : BaseEntity
     
     private Appointment() { } // For EF Core
 
-    public Appointment(Guid customerId, Guid stylistId, Guid serviceId, DateTime startTime, DateTime endTime, AppointmentStatus status, Stylist stylist, Service service)
+    public Appointment(Guid customerId, DateTime startTime, DateTime endTime, Stylist stylist, Service service)
     {
         CustomerId = customerId;
-        StylistId = stylistId;
-        ServiceId = serviceId;
         StartTime = startTime;
         EndTime = endTime;
         Stylist = stylist;

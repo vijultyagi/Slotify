@@ -11,7 +11,6 @@ namespace Slotify.Domain.Interfaces
         public Task<ICollection<Appointment>> GetAllAppointmentsAsync();
         public Task<Appointment?> GetAppointmentByIdAsync(Guid id);
         public Task AddAppointmentAsync(Appointment appointment);
-        public Task UpdateAppointmentAsync(Appointment appointment);
-        public Task DeleteAppointmentAsync(Appointment appointment);
+        public Task<Guid> DeleteAppointmentAsync(Guid id);
     }
 }
