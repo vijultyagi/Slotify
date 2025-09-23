@@ -1,3 +1,4 @@
+using FluentValidation;
 using Slotify.Domain.Entities.ServiceAggreagate;
 using Slotify.Domain.Entities.StylistAggregate.Enums;
 
@@ -13,7 +14,7 @@ public class Stylist : BaseEntity
     public ICollection<Weekday> DaysOff { get; private set; }
 
     private Stylist() { } // For EF Core
- 
+
     public Stylist(string name, string email, double availability, ICollection<Service> services, ICollection<Weekday> daysOff)
     {
         Name = name;
@@ -30,6 +31,8 @@ public class Stylist : BaseEntity
         //TODO: Update these
         CreatedBy = null;
         UpdatedBy = null;
+
+        Validator.ValidateAndThrow(this);
     }
 
     public void Update(string name, string email, double availability, ICollection<Service> services, StylistStatus status, ICollection<Weekday> daysOff)
@@ -40,5 +43,11 @@ public class Stylist : BaseEntity
         Services = services;
         Status = status;
         DaysOff = daysOff;
+
+        UpdatedOn = DateTime.UtcNow;
+
+        Validator.ValidateAndThrow(this);
     }
+    
+    private static readonly StylistValidator Validator = new StylistValidator();
 }

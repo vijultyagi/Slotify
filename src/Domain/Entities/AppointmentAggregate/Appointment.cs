@@ -1,6 +1,8 @@
 using Slotify.Domain.Entities.StylistAggregate;
 using Slotify.Domain.Entities.ServiceAggreagate;
 using Slotify.Domain.Entities.AppointmentAggregate.Enums;
+using Domain.Entities.AppointmentAggregate;
+using FluentValidation;
 
 
 namespace Slotify.Domain.Entities.AppointmentAggregate;
@@ -13,7 +15,7 @@ public class Appointment : BaseEntity
     public AppointmentStatus Status { get; private set; }
     public Stylist Stylist { get; private set; }
     public Service Service { get; private set; }
-    
+
     private Appointment() { } // For EF Core
 
     public Appointment(Guid customerId, DateTime startTime, DateTime endTime, Stylist stylist, Service service)
@@ -32,6 +34,8 @@ public class Appointment : BaseEntity
         //TODO: Update these
         CreatedBy = null;
         UpdatedBy = null;
+
+        Validator.ValidateAndThrow(this);
     }
 
     public void Update(DateTime startTime, DateTime endTime, AppointmentStatus status)
@@ -39,5 +43,11 @@ public class Appointment : BaseEntity
         StartTime = startTime;
         EndTime = endTime;
         Status = status;
+
+        UpdatedOn = DateTime.UtcNow;
+
+        Validator.ValidateAndThrow(this);
     }
+    
+    private static readonly AppointmentValidator Validator = new AppointmentValidator();
 }
