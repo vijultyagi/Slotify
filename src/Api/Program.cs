@@ -1,3 +1,4 @@
+using Api.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Slotify.Application.Commands.CreateService;
 using Slotify.Domain.Interfaces;
@@ -10,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IStylistRepository, StylistRepository>();
@@ -38,7 +42,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseExceptionHandler();
 app.MapControllers();
 
 await app.RunAsync();
